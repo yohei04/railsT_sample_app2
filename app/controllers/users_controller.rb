@@ -13,7 +13,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-    
+      flash[:success] = "Welcome to the Sample App!"
+      #       redirect_to  “/users/#{@user.id}”
+      # ↓users _path  POST   /users(.:format)          users#create
+      # redirect_to user_path(@user.id)
+      # ↓user_pathの引数に渡すときはデフォルトでidを渡すのでわざわざidと書かなくてよい
+      # redirect_to user_path(@user) == redirect_to user_url(@user)
+      # ↓ redirect_toの引数にuserオブジェクトが入るとデフォルトでuser_path(@user)になる
+      # redirect_to @user
+      redirect_to @user #=>show action
     else
       render 'new'
     end
