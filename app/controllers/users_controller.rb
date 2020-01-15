@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in @user
       flash[:success] = "Welcome to the Sample App!"
       #       redirect_to  “/users/#{@user.id}”
       # ↓users _path  POST   /users(.:format)          users#create
@@ -27,6 +28,8 @@ class UsersController < ApplicationController
     end
     
   end
+
+
 
   private
 
