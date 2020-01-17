@@ -19,6 +19,9 @@ module SessionsHelper
     cookies.delete(:remember_token)    
   end
   
+  def current_user?(user)
+    user == current_user
+  end
   
   # 記憶トークンcookieに対応するユーザーを返す
   def current_user
