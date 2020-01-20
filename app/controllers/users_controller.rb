@@ -19,16 +19,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      #       redirect_to  “/users/#{@user.id}”
-      # ↓users _path  POST   /users(.:format)          users#create
-      # redirect_to user_path(@user.id)
-      # ↓user_pathの引数に渡すときはデフォルトでidを渡すのでわざわざidと書かなくてよい
-      # redirect_to user_path(@user) == redirect_to user_url(@user)
-      # ↓ redirect_toの引数にuserオブジェクトが入るとデフォルトでuser_path(@user)になる
-      # redirect_to @user
-      redirect_to @user #=>show action
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account"
+      redirect_to root_url
     else
       render 'new'
     end
