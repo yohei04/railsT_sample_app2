@@ -13,6 +13,12 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :users
+  resources :account_activations, only: [:edit]
+  # get "/account_activations/:id/edit"
+  # params[:id] <== 有効化トークン
+  #Controller: params[:id]
 
   # root 'application#hello'
 end
+
+
